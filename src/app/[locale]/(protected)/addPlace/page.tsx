@@ -9,9 +9,6 @@ import { supabase } from 'src/lib/supabase';
 import withAuth from 'src/app/components/withAuth';
 import { z } from 'zod';
 
-// import { useTranslations } from 'next-intl';
-
-
 // Define Zod validation schema
 const InfoSchema = z.object({
   name: z.string().min(1, 'Name is required').refine((val) => isNaN(Number(val)), {
@@ -53,10 +50,6 @@ const INITIAL_DATA: FromData = {
 };
 
 const AddPlace = () => {
-  
-
-
-
   const [data, setData] = useState<FromData>(INITIAL_DATA);
   const [errors, setErrors] = useState<Partial<Record<keyof FromData, string[]>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -77,7 +70,9 @@ const AddPlace = () => {
       const formErrors = result.error.format();
       const formattedErrors: Partial<Record<keyof FromData, string[]>> = {};
       for (const key in formErrors) {
-        formattedErrors[key as keyof FromData] = formErrors[key]?._errors;
+        if (formErrors[key as keyof typeof formErrors]) {
+          formattedErrors[key as keyof FromData] = formErrors[key as keyof typeof formErrors]?._errors;
+        }
       }
       setErrors(formattedErrors);
       setIsValid(false);
@@ -116,9 +111,15 @@ const AddPlace = () => {
           throw new Error(`Failed to upload image: ${error.message}`);
         }
       }
-        const file = files[0]
-        const filePath = `${placeId}/cover_image/${file.name}`;
-        const { data: fileData, error } = await supabase.storage.from('almlahFiles').upload(filePath, file);
+
+      // Upload cover image
+      const coverImage = files[0];
+      const coverImagePath = `${placeId}/cover_image/${coverImage.name}`;
+      const { data: coverImageData, error: coverImageError } = await supabase.storage.from('almlahFiles').upload(coverImagePath, coverImage);
+
+      if (coverImageError) {
+        throw new Error(`Failed to upload cover image: ${coverImageError.message}`);
+      }
 
       alert('Place added successfully!');
     } catch (error) {
@@ -136,17 +137,17 @@ const AddPlace = () => {
         <div>{step}</div>
 
         <div>
-        <button
-          className={`p-2 rounded-2xl ${
-            isSubmitting || !isValid
-              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-yellow-300 text-black cursor-pointer'
-          }`}
-          type="submit"
-          disabled={isSubmitting || !isValid}
-        >
-          {isLastStep ? (isSubmitting ? "Submitting..." : "Finish") : "Next"}
-        </button>
+          <button
+            className={`p-2 rounded-2xl ${
+              isSubmitting || !isValid
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-yellow-300 text-black cursor-pointer'
+            }`}
+            type="submit"
+            disabled={isSubmitting || !isValid}
+          >
+            {isLastStep ? (isSubmitting ? "Submitting..." : "Finish") : "Next"}
+          </button>
 
           {!isFirstStep && (
             <button className="bg-black text-white p-2 rounded-2xl" type="button" onClick={back}>
@@ -160,5 +161,6 @@ const AddPlace = () => {
 };
 
 export default withAuth(AddPlace);
+
 
 
