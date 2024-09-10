@@ -70,6 +70,7 @@ const AddPlace = () => {
       const formErrors = result.error.format();
       const formattedErrors: Partial<Record<keyof FromData, string[]>> = {};
       for (const key in formErrors) {
+        // Use type assertion to handle error formatting
         if (Array.isArray(formErrors[key])) {
           formattedErrors[key as keyof FromData] = formErrors[key as keyof typeof formErrors] as string[];
         } else if (formErrors[key] && typeof formErrors[key] === 'object' && '_errors' in formErrors[key]) {
