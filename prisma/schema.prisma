@@ -1,0 +1,134 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  // the default generator to convert the prisma code
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl  = env("DIRECT_URL")
+}
+
+
+model User {
+  id             String    @id @default(cuid())
+  name           String?
+  email          String    @unique
+  emailVerified  DateTime?
+  image          String?
+  role           Role @default(BASIC)
+  accounts       Account[]
+  sessions       Session[]
+  written_reviews Review[]
+  written_places  Place[] @relation("written_places")
+  favorite_places Place[] @relation("favorite_places")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Account {
+  id                 String   @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+enum Role{
+  BASIC
+  VERIFIED
+  ADMIN
+}
+
+model Place {
+  id                String @id @default(cuid())
+  user_id            String
+  author            User @relation("written_places",fields: [user_id] , references: [id])
+  is_checked         Boolean @default(false)
+  name_en             String?
+  name_ar             String? 
+  location            String
+  description_en      String?
+  description_ar      String?
+  governorate         Int
+  place_type          Int 
+  rating              Int
+  note_en             String?
+  note_ar             String?
+  place_reviews      Review[]
+  favorited_by       User?  @relation("favorite_places",fields: [favorited_by_id] , references: [id])
+  favorited_by_id     String?
+  status            place_status?
+@@index([name_en, name_ar, governorate, place_type])
+}
+
+model place_status{
+  id                String @id @default(cuid())
+  place_id           String @unique
+  place             Place @relation(fields: [place_id] , references: [id])
+  is_shady_place      Int
+  is_camping         Int
+  perfect_time      String?
+  road              Int
+  place_services    Int
+
+
+}
+
+
+
+
+model Review{
+  id String @id @default(cuid()) 
+  user_id String 
+  writtenBy User @relation(fields: [user_id] , references: [id])
+  place_id String  @unique
+  place_name   Place @relation(fields: [place_id] , references: [id])
+  title_ar String?
+  title_en String?
+  description_ar String?
+  description_en String?
+  rating Float
+  created_at DateTime @default(now())
+  is_accepted   Boolean @default(false)
+  visiting_time DateTime?
+ 
+
+
+}
+
+

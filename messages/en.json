@@ -1,0 +1,93 @@
+{
+    "HomePage":{
+        "welcome":"Experience something extraordinary in Oman with AlMlah, your travel destination guide",
+        "goMap":"Go To Map",
+        "heroParagraph":"Oman is a luxury experience ... where exploration knows no bounds",
+        "numOfPlaces":"We Cover More Than ",
+        "contPlaces":"Tourism Places"
+    },
+    "Links":{
+        "about":"About",
+        "map":"Map",
+        "brand":"ALMLAH",
+        "dir":"ltr"
+    },
+    "Forms":{
+            "placeInformation":"Place Information",
+            "placeName": "Place Name",
+            "location": "Location",
+            "description": "Description",
+            "governorate": "Governorate",
+            "placeType": "Place Type",
+            "rating": "Rating",
+            "note": "Note",
+            "selectGovernorate": "Select Governorate",
+            "muscat": "Muscat",
+            "dhofar": "Dhofar",
+            "alBuraimi": "Al Buraimi",
+            "alDakhiliyah": "Al Dakhiliyah",
+            "alBatinahNorth": "Al Batinah North",
+            "alBatinahSouth": "Al Batinah South",
+            "alSharqiyahNorth": "Al Sharqiyah North",
+            "alSharqiyahSouth": "Al Sharqiyah South",
+            "alWusta": "Al Wusta",
+            "musandam": "Musandam",
+            "alDhahirah": "Al Dhahirah",
+            "selectPlaceType": "Select a place type",
+            "beach": "Beach",
+            "mountain": "Mountain",
+            "souq": "Souq",
+            "park": "Park",
+            "museum": "Muesum",
+            "cave":"Cave" ,
+            "fort" :"Fort", 
+            "castle":"Castle",
+            "zipLine": "Zip Line", 
+            "wadi" :"Wadi", 
+            "animalsPark":"Animals Park",
+            "factory": "Factory",
+            "festival":"Festival" , 
+            "hotSpring": "Hot Spring" ,
+            "hike":"Hike", 
+            "walkingTrack":"Walking Track" , 
+            "dam" :"Water Dam" ,
+            "falaj" :"Falaj",
+            "mosque":"Mosque",
+            "plantsPark": "Plants Park",
+            "ImageUploader":"Upload Images For The Place:",
+            "selectCamping ":"Is Camping Allowed ",
+            "allowed":"Allowed",
+            "notAllowed":"Not Allowed",
+            "allowedButNotRecommended":"Allowed But Not Recommended",
+            "shady":"Shady places Available",
+            "notShady":"No Shady Places Available"
+
+   
+          
+    },
+    "Database" : {
+        "name" : "name_en" , 
+        "description":"description_en",
+        "note":"note_en"
+    },
+    "Status":{
+        "signIn":"Sign In",
+        "signOut":"Sign Out"
+    },
+    "Footer":{
+        "branding":"ALMLAH IS READY",
+        "rights":"All Right Reseved  ",
+        "brand":"ALMLAH",
+        "shortCutLinks":"Quick Links",
+        "about":"about",
+        "toMap":"To Map",
+        "addPlace":"Add Tourism Place"
+    },
+    "about":{
+        "soon":"Soooon"
+    },
+    "mapPage":{
+        "brand":"ALMLAH"
+    }
+}
+

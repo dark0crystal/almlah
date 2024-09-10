@@ -1,0 +1,99 @@
+{
+    "HomePage":{
+        "welcome":"عش تجربة استثنائية في عُمان مع الملاح، دليل الوجهات السياحية",
+        "goMap":"إذهب إلى الخريطة",
+        "heroParagraph":"عُمان فخامة التجربة ... حيث لا حدود للإستكشاف",
+        "numOfPlaces":"غطينا أكثر من ",
+        "contPlaces":"مكان سياحي"
+    },
+    "Links":{
+        "about":"من نحن",
+        "map":"الخريطة",
+        "brand":"الملاح",
+        "dir":"rtl"
+    },
+    "Forms":{
+            "placeInformation":"معلومات عن المكان السياحي",
+            "placeName": "اسم المكان",
+            "location": "الموقع",
+            "description": "الوصف",
+            "governorate": "المحافظة",
+            "placeType": "نوع المكان",
+            "rating": "التقييم",
+            "note": "ملاحظة",
+            "selectGovernorate": "اختر المحافظة",
+            "muscat": "مسقط",
+            "dhofar": "ظفار",
+            "alBuraimi": "البريمي",
+            "alDakhiliyah": "الداخلية",
+            "alBatinahNorth": "شمال الباطنة",
+            "alBatinahSouth": "جنوب الباطنة",
+            "alSharqiyahNorth": "شمال الشرقية",
+            "alSharqiyahSouth": "جنوب الشرقية",
+            "alWusta": "الوسطى",
+            "musandam": "مسندم",
+            "alDhahirah": "الظاهرة",
+            "selectPlaceType": "اختر نوع المكان",
+            "beach": "شاطئ",
+            "mountain": "جبل",
+            "souq": "سوق",
+            "park": "منتزه",
+            "museum": "متحف",
+            "cave":"كهف" ,
+            "fort" :"حصن", 
+            "castle":"قلعة",
+            "zipLine": "حبل إنزلاقي", 
+            "wadi" :"وادي", 
+            "animalsPark":"حديقة حيوانات",
+            "factory": "مصنع",
+            "festival":"مهرجان" , 
+            "hotSpring": "عين" ,
+            "hike":"هايك", 
+            "walkingTrack":"ممشى" , 
+            "dam" :"سد مياة" ,
+            "falaj" :"فلج" ,
+            "mosque":"مسجد",
+            "plantsPark": "حديقة نباتات",
+            "ImageUploader":": إضافة صور للموقع",
+            "selectCamping ":"هل يسمح التخييم في المكان",
+            "allowed":"التخييم مسموح",
+            "notAllowed":"التخييم غير مسموح",
+            "allowedButNotRecommended":"التخييم مسموح لكن لا يفضل",
+            "shady":"يوجد مظلات بالمكان",
+            "notShady":"لا يوجد مظلات بالمكان"
+
+             
+       
+    },
+
+    "Database" : {
+        "name" : "name_ar" , 
+        "description":"description_ar",
+        "note":"note_ar"
+    },
+    "FormValidation":{
+        "required":"هذاالحقل مطلوب",
+        "notNumber":"لا يمكنك إدخال أرقام في هذا الحقل ",
+        "ratingRange":"يجب أن يكون التقييم بين 1-5"
+    
+    },      
+    "Status":{
+        "signIn":"تسجيل دخول",
+        "signOut":"تسجيل خروج"
+    },
+    "Footer":{
+        "branding":"ملاحك جاهز",
+        "rights":"  كل الحقوق محفوظة",
+        "brand":"الملاح",
+        "shortCutLinks":"روابط مختصرة",
+        "about":"من نحن",
+        "toMap":"الخريطة",
+        "addPlace":"أضف مكان سياحي"
+    },
+    "about":{
+        "soon":"في الطريق لا تشتط"
+    },
+    "mapPage":{
+        "brand":"الملاح"
+    }
+}
