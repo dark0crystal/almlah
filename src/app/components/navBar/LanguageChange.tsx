@@ -2,9 +2,9 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "700"] ,display: 'swap',});
+// const inter = Inter({ subsets: ["latin"], weight: ["400", "700"] ,display: 'swap',});
 
 export default function LanguageChange() {
     const t = useTranslations("Links");
@@ -15,7 +15,7 @@ export default function LanguageChange() {
     const pathWithoutLocale = pathName.replace(`/${locale}`, "");
 
     return (
-        <div className={inter.className}>
+        <div >
             {locale === "ar" ? (
                 <Link className="mx-6 text-3xl font-bold" href={`/en${pathWithoutLocale}`} locale="en">
                     🇬🇧

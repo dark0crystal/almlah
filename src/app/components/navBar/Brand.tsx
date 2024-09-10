@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import { Inter, Lalezar } from "next/font/google";
+import { Lalezar } from "next/font/google";
 
 const lalezarFont = Lalezar({
     weight: "400",

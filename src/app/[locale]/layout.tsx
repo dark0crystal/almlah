@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Phudu, Alexandria } from "next/font/google";
+import { Alexandria } from "next/font/google";
 import "./globals.css";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
