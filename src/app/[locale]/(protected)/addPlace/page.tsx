@@ -51,7 +51,7 @@ const INITIAL_DATA: FromData = {
 
 const AddPlace = () => {
   const [data, setData] = useState<FromData>(INITIAL_DATA);
-  const [errors, setErrors] = useState<Partial<Record<keyof FromData, string[]>>>({});
+  const [errors, setErrors] = useState<Partial<Record<keyof FromData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
@@ -67,7 +67,7 @@ const AddPlace = () => {
   useEffect(() => {
     const result = InfoSchema.safeParse(data);
     if (!result.success) {
-      const formattedErrors: Partial<Record<keyof FromData, string[]>> = {};
+      const formattedErrors: Partial<Record<keyof FromData, string>> = {};
 
       // Handle Zod error formatting
       const errorFormat = result.error.format();
@@ -75,13 +75,13 @@ const AddPlace = () => {
         const errors = errorFormat[key as keyof typeof errorFormat];
 
         if (errors && typeof errors === 'object' && '_errors' in errors) {
-          // Ensure errors._errors is an array
+          // Ensure errors._errors is an array and join them into a single string
           if (Array.isArray(errors._errors)) {
-            formattedErrors[key as keyof FromData] = errors._errors;
+            formattedErrors[key as keyof FromData] = errors._errors.join(', ');
           }
         } else if (Array.isArray(errors)) {
-          // Handle case where errors is an array of strings
-          formattedErrors[key as keyof FromData] = errors;
+          // Handle case where errors is an array of strings and join them into a single string
+          formattedErrors[key as keyof FromData] = errors.join(', ');
         }
       });
 
