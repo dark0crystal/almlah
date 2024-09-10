@@ -19,7 +19,7 @@ export async function addNewPlace(data: FromData) {
   // Retrieve user from the database using session data
   const userIdDb = await prisma.user.findUnique({
     where: {
-      email: session.user?.email,
+      email: session.user?.email ?? null,
       name: session.user?.name,
     },
   });
