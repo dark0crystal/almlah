@@ -76,17 +76,16 @@ const AddPlace = () => {
       const formattedErrors: Partial<Record<keyof FromData, string[]>> = {};
 
       // Handle error formatting
-      if (formErrors && typeof formErrors === 'object') {
-        for (const key in formErrors) {
-          const keyTyped = key as keyof FromData;
+      for (const key in formErrors) {
+        const keyTyped = key as keyof FromData;
 
-          if (Array.isArray(formErrors[key])) {
-            formattedErrors[keyTyped] = formErrors[key] as string[];
-          } else if (isErrorObject(formErrors[key])) {
-            formattedErrors[keyTyped] = formErrors[key]._errors;
-          }
+        if (Array.isArray(formErrors[key])) {
+          formattedErrors[keyTyped] = formErrors[key] as string[];
+        } else if (isErrorObject(formErrors[key])) {
+          formattedErrors[keyTyped] = formErrors[key]._errors;
         }
       }
+
       setErrors(formattedErrors);
       setIsValid(false);
     } else {
@@ -125,13 +124,15 @@ const AddPlace = () => {
         }
       }
 
-      // Upload cover image
-      const coverImage = files[0];
-      const coverImagePath = `${placeId}/cover_image/${coverImage.name}`;
-      const { data: coverImageData, error: coverImageError } = await supabase.storage.from('almlahFiles').upload(coverImagePath, coverImage);
+      // Upload cover image if it exists
+      if (files.length > 0) {
+        const coverImage = files[0];
+        const coverImagePath = `${placeId}/cover_image/${coverImage.name}`;
+        const { data: coverImageData, error: coverImageError } = await supabase.storage.from('almlahFiles').upload(coverImagePath, coverImage);
 
-      if (coverImageError) {
-        throw new Error(`Failed to upload cover image: ${coverImageError.message}`);
+        if (coverImageError) {
+          throw new Error(`Failed to upload cover image: ${coverImageError.message}`);
+        }
       }
 
       alert('Place added successfully!');
@@ -174,6 +175,7 @@ const AddPlace = () => {
 };
 
 export default withAuth(AddPlace);
+
 
 
 
