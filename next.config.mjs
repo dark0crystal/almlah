@@ -6,7 +6,7 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
     
     images: {
-        //عدله بارك الله فيك 
+     
         domains: [process.env.DOMAINS,'lh3.googleusercontent.com'],
       },
 };
