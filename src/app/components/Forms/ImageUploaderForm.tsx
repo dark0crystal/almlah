@@ -5,23 +5,22 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { FaTrash } from 'react-icons/fa';
 
-// Assuming imageData is defined somewhere
-type imageData = {
-    placeImages: Array<File>;
+type ImageData = {
+    placeImages: File[];
 };
 
-type ImageProps = imageData & {
-    updateFields: (fields: Partial<imageData>) => void;
+type ImageProps = ImageData & {
+    updateFields: (fields: Partial<ImageData>) => void;
 };
 
 export default function ImageUploaderForm({ placeImages, updateFields }: ImageProps) {
     const t = useTranslations('Forms');
     const [preview, setPreview] = useState<Array<string>>([]);
-    const [files, setFiles] = useState<Array<File>>([]);
+    const [files, setFiles] = useState<Array<File>>(placeImages);
 
     async function handleOnChange(e: FormEvent<HTMLInputElement>) {
         const target = e.target as HTMLInputElement & { files: FileList };
-        const newFiles = Array.from(target.files);
+        const newFiles = Array.from(target.files || []);
 
         if (!newFiles.length) return;
 
@@ -54,36 +53,38 @@ export default function ImageUploaderForm({ placeImages, updateFields }: ImagePr
         <FormWrapper title={t("ImageUploader")}>
             <br />
             <input
-                className="rounded-2xl border-dashed border-2 border-yellow-300 p-2 m-2 w-full h-[30vh]"
+                className="rounded-2xl border-dashed border-2 border-yellow-300 p-2 m-2 w-full h-[30px] cursor-pointer"
                 type="file"
-                name="placeImages"
-                onChange={handleOnChange}
+                accept="image/*"
                 multiple
+                onChange={handleOnChange}
             />
-
-            <div className="grid grid-cols-3 gap-4">
-                {preview.map((imgSrc, index) => (
-                    <div key={index} className="relative w-[100px] h-[100px]  md:h-[200px] md:w-[200px] rounded-2xl overflow-hidden">
-                        <Image
-                            src={imgSrc}
-                            alt={`preview ${index}`}
-                            fill
-                            style={{ objectFit: 'cover' }}
-                        />
-                        <button
-                            type="button"
-                            onClick={() => handleDeleteImage(index)}
-                            className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full"
-                        >
-                        <FaTrash />
-                        </button>
-                    </div>
-                ))}
-            </div>
+            <br />
+            {preview.length > 0 && (
+                <div className="flex flex-wrap">
+                    {preview.map((src, index) => (
+                        <div key={index} className="relative m-2">
+                            <Image
+                                src={src}
+                                alt={`Preview ${index}`}
+                                width={100}
+                                height={100}
+                                className="rounded-2xl"
+                            />
+                            <button
+                                type="button"
+                                className="absolute top-0 right-0 text-red-500"
+                                onClick={() => handleDeleteImage(index)}
+                            >
+                                <FaTrash />
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            )}
         </FormWrapper>
     );
 }
-
 
 
 

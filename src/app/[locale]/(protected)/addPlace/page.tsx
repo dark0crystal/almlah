@@ -29,12 +29,12 @@ const InfoSchema = z.object({
   isCamping: z.number().nullable(),
   place_services: z.number().nullable(),
   road: z.number().nullable(),
-  placeImages: z.array(z.instanceof(File)).optional(),
+  placeImages: z.array(z.instanceof(File)).optional(), // Optional field
 });
 
-export type FromData = z.infer<typeof InfoSchema>;
+export type InfoData = z.infer<typeof InfoSchema>;
 
-const INITIAL_DATA: FromData = {
+const INITIAL_DATA: InfoData = {
   name: "",
   location: "",
   description: "",
@@ -46,17 +46,17 @@ const INITIAL_DATA: FromData = {
   isCamping: null,
   place_services: null,
   road: null,
-  placeImages: [],
+  placeImages: [], // Default to empty array if no images
 };
 
 const AddPlace = () => {
-  const [data, setData] = useState<FromData>(INITIAL_DATA);
-  const [errors, setErrors] = useState<Partial<Record<keyof FromData, string>>>({});
+  const [data, setData] = useState<InfoData>(INITIAL_DATA);
+  const [errors, setErrors] = useState<Partial<Record<keyof InfoData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isValid, setIsValid] = useState(false);
 
   // Update form fields
-  function updateFields(fields: Partial<FromData>) {
+  function updateFields(fields: Partial<InfoData>) {
     setData(prev => ({
       ...prev,
       ...fields,
@@ -67,7 +67,7 @@ const AddPlace = () => {
   useEffect(() => {
     const result = InfoSchema.safeParse(data);
     if (!result.success) {
-      const formattedErrors: Partial<Record<keyof FromData, string>> = {};
+      const formattedErrors: Partial<Record<keyof InfoData, string>> = {};
 
       // Handle Zod error formatting
       const errorFormat = result.error.format();
@@ -77,11 +77,11 @@ const AddPlace = () => {
         if (errors && typeof errors === 'object' && '_errors' in errors) {
           // Ensure errors._errors is an array and join them into a single string
           if (Array.isArray(errors._errors)) {
-            formattedErrors[key as keyof FromData] = errors._errors.join(', ');
+            formattedErrors[key as keyof InfoData] = errors._errors.join(', ');
           }
         } else if (Array.isArray(errors)) {
           // Handle case where errors is an array of strings and join them into a single string
-          formattedErrors[key as keyof FromData] = errors.join(', ');
+          formattedErrors[key as keyof InfoData] = errors.join(', ');
         }
       });
 
@@ -96,8 +96,8 @@ const AddPlace = () => {
   // Multi-step form
   const { steps, currentStepIndex, isFirstStep, step, back, next, isLastStep } = UseMultiStepForm([
     <InfoForm key="first" errors={errors} {...data} updateFields={updateFields} />,
-    <ImageUploaderForm placeImages={data.placeImages} updateFields={updateFields} key="second" />,
-    <PlaceStatusForm errors={errors} key="third" {...data} updateFields={updateFields} />,
+    <ImageUploaderForm key="second" placeImages={data.placeImages} updateFields={updateFields} />,
+    <PlaceStatusForm key="third" errors={errors} {...data} updateFields={updateFields} />,
   ]);
 
   // Submit handler
@@ -170,6 +170,7 @@ const AddPlace = () => {
 };
 
 export default withAuth(AddPlace);
+
 
 
 
