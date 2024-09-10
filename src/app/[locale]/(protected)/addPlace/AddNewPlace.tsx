@@ -16,11 +16,10 @@ export async function addNewPlace(data: FromData) {
     throw new Error('User not authenticated');
   }
 
-  // Retrieve user from the database using session data
   const userIdDb = await prisma.user.findUnique({
     where: {
-      email: session.user?.email ?? null,
-      name: session.user?.name,
+      email: session.user?.email ?? undefined,
+      name: session.user?.name ?? undefined,
     },
   });
 
