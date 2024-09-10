@@ -1,12 +1,12 @@
 'use client';
 import React, { FormEvent, useState, useEffect } from 'react';
-import InfoForm from 'src/app/components/Forms/InfoForm';
+import InfoForm from '../../../components/Forms/InfoForm'
 import UseMultiStepForm from '../../../components/Forms/UseMultiStepForm';
-import ImageUploaderForm from 'src/app/components/Forms/ImageUploaderForm';
+import ImageUploaderForm from '../../../components/Forms/ImageUploaderForm';
 import PlaceStatusForm from '../../../components/Forms/PlaceStatusForm';
 import { addNewPlace } from './AddNewPlace'; // Import the server action
-import { supabase } from 'src/lib/supabase';
-import withAuth from 'src/app/components/withAuth';
+import { supabase } from './../../../../lib/supabase';
+import withAuth from '../../../components/withAuth'
 import { z } from 'zod';
 
 // Define Zod validation schema
