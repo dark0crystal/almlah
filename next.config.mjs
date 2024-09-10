@@ -1,4 +1,3 @@
-// Import the `next-intl` plugin creator
 import createNextIntlPlugin from 'next-intl/plugin';
 
 // Create the plugin with the `createNextIntlPlugin` function
@@ -17,6 +16,7 @@ const nextConfig = {
 
 // Export the configuration with the `withNextIntl` plugin applied
 export default withNextIntl(nextConfig);
+
 
 
 
