@@ -78,10 +78,12 @@ const AddPlace = () => {
       // Use type guard to handle error formatting
       if (formErrors && typeof formErrors === 'object') {
         for (const key in formErrors) {
+          const keyTyped = key as keyof FromData;
+
           if (Array.isArray(formErrors[key])) {
-            formattedErrors[key as keyof FromData] = formErrors[key] as string[];
+            formattedErrors[keyTyped] = formErrors[key] as string[];
           } else if (isErrorObject(formErrors[key])) {
-            formattedErrors[key as keyof FromData] = formErrors[key]._errors;
+            formattedErrors[keyTyped] = formErrors[key]._errors;
           }
         }
       }
