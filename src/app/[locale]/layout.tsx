@@ -1,18 +1,16 @@
 import type { Metadata } from "next";
-// import { Alexandria } from "next/font/google";
-import { Inter } from 'next/font/google'
+import { Alexandria } from "next/font/google";
 import "./globals.css";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import NextAuthProvider from 'src/providers/NextAuthProvider';
 
 // const phudu = Phudu({ subsets: ["latin"], weight: ["400", "500", "600", "700", "900"] });
-// const alexandriaFont = Alexandria({
-//     weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-//     subsets: ["latin"],
-//     display: 'swap',
-// });
-const inter = Inter({ subsets: ['latin'] });
+const alexandriaFont = Alexandria({
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+    subsets: ["latin"],
+    display: 'swap',
+});
 
 export const metadata: Metadata = {
     title: "almlah",
@@ -38,8 +36,7 @@ export default async function RootLayout({
     return (
         <html lang={locale} dir={direction}>
             <NextAuthProvider>
-                {/* alexandriaFont.className */}
-                <body className={  inter.className}>
+                <body className={alexandriaFont.className}>
                     <NextIntlClientProvider locale={locale} messages={messages}>
                         <main>
                             {children}
