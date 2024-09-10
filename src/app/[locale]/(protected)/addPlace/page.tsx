@@ -70,8 +70,10 @@ const AddPlace = () => {
       const formErrors = result.error.format();
       const formattedErrors: Partial<Record<keyof FromData, string[]>> = {};
       for (const key in formErrors) {
-        if (formErrors[key as keyof typeof formErrors]) {
-          formattedErrors[key as keyof FromData] = formErrors[key as keyof typeof formErrors]?._errors;
+        if (Array.isArray(formErrors[key])) {
+          formattedErrors[key as keyof FromData] = formErrors[key as keyof typeof formErrors] as string[];
+        } else if (formErrors[key] && typeof formErrors[key] === 'object' && '_errors' in formErrors[key]) {
+          formattedErrors[key as keyof FromData] = (formErrors[key] as { _errors: string[] })._errors;
         }
       }
       setErrors(formattedErrors);
@@ -161,6 +163,7 @@ const AddPlace = () => {
 };
 
 export default withAuth(AddPlace);
+
 
 
 
