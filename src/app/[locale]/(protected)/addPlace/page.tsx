@@ -96,7 +96,7 @@ const AddPlace = () => {
   // Multi-step form
   const { steps, currentStepIndex, isFirstStep, step, back, next, isLastStep } = UseMultiStepForm([
     <InfoForm key="first" errors={errors} {...data} updateFields={updateFields} />,
-    <ImageUploaderForm key="second" placeImages={data.placeImages} updateFields={updateFields} />,
+    <ImageUploaderForm key="second" placeImages={data.placeImages || []} updateFields={updateFields} />,
     <PlaceStatusForm key="third" errors={errors} {...data} updateFields={updateFields} />,
   ]);
 
