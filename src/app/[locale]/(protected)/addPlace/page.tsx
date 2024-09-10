@@ -7,7 +7,7 @@ import PlaceStatusForm from '../../../components/Forms/PlaceStatusForm';
 import { addNewPlace } from './AddNewPlace'; // Import the server action
 import { supabase } from 'src/lib/supabase';
 import withAuth from 'src/app/components/withAuth';
-import { z, ZodFormattedError } from 'zod';
+import { z } from 'zod';
 
 // Define Zod validation schema
 const InfoSchema = z.object({
@@ -20,7 +20,7 @@ const InfoSchema = z.object({
     .min(1, 'Description is required')
     .refine((desc) => desc.replace(/\s+/g, '').length >= 100, {
       message: 'Description must be at least 100 characters excluding spaces',
-    }), // Custom validation
+    }),
   governorate: z.number().nullable(),
   place_type: z.number().nullable(),
   rating: z.string().regex(/^[1-5]$/, 'Rating must be between 1 and 5'),
@@ -29,7 +29,7 @@ const InfoSchema = z.object({
   isCamping: z.number().nullable(),
   place_services: z.number().nullable(),
   road: z.number().nullable(),
-  placeImages: z.array(z.instanceof(File)),
+  placeImages: z.array(z.instanceof(File)).optional(),
 });
 
 export type FromData = z.infer<typeof InfoSchema>;
@@ -63,29 +63,16 @@ const AddPlace = () => {
     }));
   }
 
-  // Type guard for checking if the error is an object with _errors
-  function isErrorObject(error: unknown): error is { _errors: string[] } {
-    return typeof error === 'object' && error !== null && '_errors' in error;
-  }
-
   // Validate the form data whenever it changes
   useEffect(() => {
     const result = InfoSchema.safeParse(data);
     if (!result.success) {
-      const formErrors = result.error.format();
       const formattedErrors: Partial<Record<keyof FromData, string[]>> = {};
-
-      // Iterate over keys and handle error formatting
-      for (const key in formErrors) {
-        const keyTyped = key as keyof FromData;
-
-        if (Array.isArray(formErrors[key])) {
-          formattedErrors[keyTyped] = formErrors[key] as string[];
-        } else if (isErrorObject(formErrors[key])) {
-          formattedErrors[keyTyped] = (formErrors[key] as z.ZodFormattedError<FromData>)._errors;
+      result.error.format().forEach((error) => {
+        if (error._errors) {
+          formattedErrors[error.path[0] as keyof FromData] = error._errors;
         }
-      }
-
+      });
       setErrors(formattedErrors);
       setIsValid(false);
     } else {
@@ -108,30 +95,26 @@ const AddPlace = () => {
 
     try {
       setIsSubmitting(true);
-      const { placeId, userId } = await addNewPlace({
+      const { placeId } = await addNewPlace({
         ...data,
         placeImages: undefined, // Exclude placeImages from place data submission
       });
 
-      const files = data.placeImages;
+      if (data.placeImages) {
+        const uploadPromises = data.placeImages.map(async (file) => {
+          const filePath = `${placeId}/${file.name}`;
+          const { error } = await supabase.storage.from('almlahFiles').upload(filePath, file);
+          if (error) throw new Error(`Failed to upload image: ${error.message}`);
+        });
 
-      for (const file of files) {
-        const filePath = `${placeId}/${file.name}`;
-        const { data: fileData, error } = await supabase.storage.from('almlahFiles').upload(filePath, file);
+        await Promise.all(uploadPromises);
 
-        if (error) {
-          throw new Error(`Failed to upload image: ${error.message}`);
-        }
-      }
-
-      // Upload cover image if it exists
-      if (files.length > 0) {
-        const coverImage = files[0];
-        const coverImagePath = `${placeId}/cover_image/${coverImage.name}`;
-        const { data: coverImageData, error: coverImageError } = await supabase.storage.from('almlahFiles').upload(coverImagePath, coverImage);
-
-        if (coverImageError) {
-          throw new Error(`Failed to upload cover image: ${coverImageError.message}`);
+        // Upload cover image if it exists
+        if (data.placeImages.length > 0) {
+          const coverImage = data.placeImages[0];
+          const coverImagePath = `${placeId}/cover_image/${coverImage.name}`;
+          const { error: coverImageError } = await supabase.storage.from('almlahFiles').upload(coverImagePath, coverImage);
+          if (coverImageError) throw new Error(`Failed to upload cover image: ${coverImageError.message}`);
         }
       }
 
@@ -175,6 +158,7 @@ const AddPlace = () => {
 };
 
 export default withAuth(AddPlace);
+
 
 
 
