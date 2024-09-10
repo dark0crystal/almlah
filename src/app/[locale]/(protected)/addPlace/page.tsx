@@ -68,11 +68,15 @@ const AddPlace = () => {
     const result = InfoSchema.safeParse(data);
     if (!result.success) {
       const formattedErrors: Partial<Record<keyof FromData, string[]>> = {};
-      result.error.format().forEach((error) => {
-        if (error._errors) {
-          formattedErrors[error.path[0] as keyof FromData] = error._errors;
+
+      // Handle Zod error formatting
+      Object.keys(result.error.format()).forEach((key) => {
+        const errors = result.error.format()[key as keyof typeof result.error.format()];
+        if (Array.isArray(errors._errors)) {
+          formattedErrors[key as keyof FromData] = errors._errors;
         }
       });
+
       setErrors(formattedErrors);
       setIsValid(false);
     } else {
@@ -158,6 +162,7 @@ const AddPlace = () => {
 };
 
 export default withAuth(AddPlace);
+
 
 
 
