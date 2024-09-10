@@ -5,9 +5,9 @@ const withNextIntl = createNextIntlPlugin();
 
 // Define the Next.js configuration
 const nextConfig = {
-  experimental: {
-    fonts: true, // Enable experimental fonts support
-  },
+  // experimental: {
+  //   fonts: true, // Enable experimental fonts support
+  // },
   images: {
     domains: [process.env.DOMAINS, 'lh3.googleusercontent.com'],
   },
