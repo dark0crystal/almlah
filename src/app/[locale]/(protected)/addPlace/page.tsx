@@ -74,8 +74,12 @@ const AddPlace = () => {
       Object.keys(errorFormat).forEach((key) => {
         const errors = errorFormat[key as keyof typeof errorFormat];
 
-        // Ensure errors._errors is defined and is an array
-        if (errors && Array.isArray(errors._errors)) {
+        // Check if errors is an array of strings
+        if (Array.isArray(errors)) {
+          formattedErrors[key as keyof FromData] = errors;
+        } 
+        // Check if errors is an object with _errors property
+        else if ('_errors' in errors && Array.isArray(errors._errors)) {
           formattedErrors[key as keyof FromData] = errors._errors;
         }
       });
@@ -165,6 +169,7 @@ const AddPlace = () => {
 };
 
 export default withAuth(AddPlace);
+
 
 
 
