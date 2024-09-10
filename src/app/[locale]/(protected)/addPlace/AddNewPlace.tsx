@@ -1,13 +1,13 @@
 "use server";
 import { prisma } from 'src/lib/prisma';
-import { FromData } from './page';
+import { InfoData } from './page';
 import { authOptions } from 'src/lib/auth';
 import { getServerSession } from 'next-auth';
 import { supabase } from 'src/lib/supabase';
 import { getTranslations } from "next-intl/server";
 import { getLocale } from "next-intl/server";
 
-export async function addNewPlace(data: FromData) {
+export async function addNewPlace(data: InfoData) {
   console.log("Inside addNewPlace function");
 
   const session = await getServerSession(authOptions);
