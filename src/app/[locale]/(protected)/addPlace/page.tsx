@@ -63,18 +63,25 @@ const AddPlace = () => {
     }));
   }
 
+  // Type guard for checking if the error is an object with _errors
+  function isErrorObject(error: unknown): error is { _errors: string[] } {
+    return typeof error === 'object' && error !== null && '_errors' in error;
+  }
+
   // Validate the form data whenever it changes
   useEffect(() => {
     const result = InfoSchema.safeParse(data);
     if (!result.success) {
       const formErrors = result.error.format();
       const formattedErrors: Partial<Record<keyof FromData, string[]>> = {};
+
+      // Use type guard to handle error formatting
       if (formErrors && typeof formErrors === 'object') {
         for (const key in formErrors) {
-          if (formErrors[key] && Array.isArray(formErrors[key])) {
+          if (Array.isArray(formErrors[key])) {
             formattedErrors[key as keyof FromData] = formErrors[key] as string[];
-          } else if (formErrors[key] && typeof formErrors[key] === 'object' && '_errors' in formErrors[key]) {
-            formattedErrors[key as keyof FromData] = (formErrors[key] as { _errors: string[] })._errors;
+          } else if (isErrorObject(formErrors[key])) {
+            formattedErrors[key as keyof FromData] = formErrors[key]._errors;
           }
         }
       }
