@@ -70,8 +70,9 @@ const AddPlace = () => {
       const formattedErrors: Partial<Record<keyof FromData, string[]>> = {};
 
       // Handle Zod error formatting
-      Object.keys(result.error.format()).forEach((key) => {
-        const errors = result.error.format()[key as keyof typeof result.error.format()];
+      const errorFormat = result.error.format();
+      Object.keys(errorFormat).forEach((key) => {
+        const errors = errorFormat[key as keyof typeof errorFormat];
         if (Array.isArray(errors._errors)) {
           formattedErrors[key as keyof FromData] = errors._errors;
         }
@@ -162,6 +163,7 @@ const AddPlace = () => {
 };
 
 export default withAuth(AddPlace);
+
 
 
 
