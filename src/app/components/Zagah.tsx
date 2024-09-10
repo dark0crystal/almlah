@@ -3,7 +3,7 @@ import { useEffect, ComponentType } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-export default function WithAuth<T extends object>(Component: ComponentType<T>) {
+export default function Zagah<T extends object>(Component: ComponentType<T>) {
   return function WithAuth(props: T) {
     const { data: session, status } = useSession();
     const router = useRouter();

@@ -6,7 +6,7 @@ import ImageUploaderForm from '../../../components/Forms/ImageUploaderForm';
 import PlaceStatusForm from '../../../components/Forms/PlaceStatusForm';
 import { addNewPlace } from './AddNewPlace'; // Import the server action
 import { supabase } from './../../../../lib/supabase';
-import WithAuth from "../../../components/WithAuth"
+import Zagah from "../../../components/Zagah"
 
 
 import { z } from 'zod';
@@ -171,7 +171,7 @@ const AddPlace = () => {
   );
 };
 
-export default WithAuth(AddPlace);
+export default Zagah(AddPlace);
 
 
 
