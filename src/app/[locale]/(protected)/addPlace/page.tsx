@@ -7,7 +7,7 @@ import PlaceStatusForm from '../../../components/Forms/PlaceStatusForm';
 import { addNewPlace } from './AddNewPlace'; // Import the server action
 import { supabase } from 'src/lib/supabase';
 import withAuth from 'src/app/components/withAuth';
-import { z } from 'zod';
+import { z, ZodFormattedError } from 'zod';
 
 // Define Zod validation schema
 const InfoSchema = z.object({
@@ -82,7 +82,7 @@ const AddPlace = () => {
         if (Array.isArray(formErrors[key])) {
           formattedErrors[keyTyped] = formErrors[key] as string[];
         } else if (isErrorObject(formErrors[key])) {
-          formattedErrors[keyTyped] = (formErrors[key] as ZodFormattedError<FromData>)._errors;
+          formattedErrors[keyTyped] = (formErrors[key] as z.ZodFormattedError<FromData>)._errors;
         }
       }
 
