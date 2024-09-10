@@ -10,7 +10,7 @@ type InfoData = {
   governorate: number | null     
   place_type: number | null       
   rating: string        
-  note: string
+  note?: string
 }
 
 type InfoProps = InfoData & {
