@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "700"] });
+const inter = Inter({ subsets: ["latin"], weight: ["400", "700"] ,display: 'swap',});
 
 export default function LanguageChange() {
     const t = useTranslations("Links");
