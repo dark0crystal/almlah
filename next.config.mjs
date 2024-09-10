@@ -1,17 +1,23 @@
+// Import the `next-intl` plugin creator
 import createNextIntlPlugin from 'next-intl/plugin';
- 
+
+// Create the plugin with the `createNextIntlPlugin` function
 const withNextIntl = createNextIntlPlugin();
- 
-/** @type {import('next').NextConfig} */
+
+// Define the Next.js configuration
 const nextConfig = {
-    
-    images: {
-     
-        domains: [process.env.DOMAINS,'lh3.googleusercontent.com'],
-      },
+  experimental: {
+    fonts: true, // Enable experimental fonts support
+  },
+  images: {
+    domains: [process.env.DOMAINS, 'lh3.googleusercontent.com'],
+  },
+  // Add other configurations as needed
 };
- 
+
+// Export the configuration with the `withNextIntl` plugin applied
 export default withNextIntl(nextConfig);
+
 
 
 
