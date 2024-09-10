@@ -1,10 +1,10 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, ComponentType } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-export default function withAuth(Component) {
-  return function WithAuth(props) {
+export default function withAuth<T extends object>(Component: ComponentType<T>) {
+  return function WithAuth(props: T) {
     const { data: session, status } = useSession();
     const router = useRouter();
 
