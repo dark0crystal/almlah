@@ -1,27 +1,32 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import {Link} from 'navigation';
+import { Link } from 'navigation';
 import { getPlacesData, getPlacesImages } from './data';
 import Image from 'next/image';
 import { Virtuoso } from 'react-virtuoso';
 import { useLocale } from 'next-intl';
 
 type Place = {
-  id: number;
+  id: string;  // Updated to match the fetched data type
   name: string;
   location: string;
+  place_type: number;  // Ensure that the place_type is included in your type definition
 };
 
 export default function PlacesMap() {
-  const locale = useLocale().substring(0,2)
+  const locale = useLocale().substring(0, 2);
   const [places, setPlaces] = useState<Place[]>([]);
-  const [placeImages, setPlaceImages] = useState<{ [key: number]: string }>({});
+  const [placeImages, setPlaceImages] = useState<{ [key: string]: string }>({});  // Use string for the key type
 
   useEffect(() => {
     async function fetchData() {
       const fetchedPlaces = await getPlacesData();
       const fetchedPlaceImages = await getPlacesImages();
-      setPlaces(fetchedPlaces);
+
+      // Filter out any places with null names
+      const validPlaces = fetchedPlaces.filter((place) => place.name !== null) as Place[];
+
+      setPlaces(validPlaces);
       setPlaceImages(fetchedPlaceImages);
     }
     fetchData();
@@ -69,3 +74,4 @@ export default function PlacesMap() {
     </div>
   );
 }
+
