@@ -66,10 +66,13 @@ export async function addNewPlace(data: FromData) {
     });
   }
 
-  // Create a new place status entry
+  if (!place) {
+    throw new Error('Place not found');
+  }
+  
   await prisma.place_status.create({
     data: {
-      place_id: place.id ,
+      place_id: place.id,
       is_shady_place: data.isShadyPlace ?? 0,
       is_camping: data.isCamping ?? 0,
       place_services: data.place_services ?? 0,
@@ -77,7 +80,7 @@ export async function addNewPlace(data: FromData) {
       perfect_time: "all",
     },
   });
-
+  
   return { success: true, placeId: place.id, userId: userIdDb.id };
 }
 
