@@ -75,14 +75,14 @@ const AddPlace = () => {
       const formErrors = result.error.format();
       const formattedErrors: Partial<Record<keyof FromData, string[]>> = {};
 
-      // Handle error formatting
+      // Iterate over keys and handle error formatting
       for (const key in formErrors) {
         const keyTyped = key as keyof FromData;
 
         if (Array.isArray(formErrors[key])) {
           formattedErrors[keyTyped] = formErrors[key] as string[];
         } else if (isErrorObject(formErrors[key])) {
-          formattedErrors[keyTyped] = formErrors[key]._errors;
+          formattedErrors[keyTyped] = (formErrors[key] as ZodFormattedError<FromData>)._errors;
         }
       }
 
@@ -175,7 +175,6 @@ const AddPlace = () => {
 };
 
 export default withAuth(AddPlace);
-
 
 
 
