@@ -1,5 +1,5 @@
 
-import { Link } from "navigation"
+import { Link } from "../../../navigation"
 import NavMenu from "../components/navBar/NavMenu";
 import { getTranslations } from "next-intl/server";
 import NavBar from "../components/navBar/NavBar";

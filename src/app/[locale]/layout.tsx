@@ -3,7 +3,7 @@ import { Alexandria } from "next/font/google";
 import "./globals.css";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import NextAuthProvider from 'src/providers/NextAuthProvider';
+import NextAuthProvider from '../../providers/NextAuthProvider';
 
 // const phudu = Phudu({ subsets: ["latin"], weight: ["400", "500", "600", "700", "900"] });
 const alexandriaFont = Alexandria({

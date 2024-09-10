@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'navigation';
+import { Link } from '../../../../navigation';
 import { getPlacesData, getPlacesImages } from './data';
 import Image from 'next/image';
 import { Virtuoso } from 'react-virtuoso';

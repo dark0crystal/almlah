@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'navigation'
+import {Link} from '../../../../../navigation'
 import { getLocale } from "next-intl/server";
 
 

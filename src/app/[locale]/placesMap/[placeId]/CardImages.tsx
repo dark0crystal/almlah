@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { supabase } from 'src/lib/supabase';
+import { supabase } from '../../../../lib/supabase';
 
 type CardImagesProps = {
   placeId: string;

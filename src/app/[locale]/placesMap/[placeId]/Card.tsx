@@ -1,9 +1,9 @@
-import prisma from "src/lib/db";
+import prisma from "../../../../lib/db";
 import CardImages from "./CardImages";
-import Governorate from "src/app/components/styledData/Governorate";
-import PlaceType from "src/app/components/styledData/PlaceType";
-import Camping from "src/app/components/styledData/Camping";
-import Shady from "src/app/components/styledData/Shady";
+import Governorate from "../../../components/styledData/Governorate";
+import PlaceType from "../../../components/styledData/PlaceType";
+import Camping from "../../../components/styledData/Camping";
+import Shady from "../../../components/styledData/Shady";
 
 
 type CardProps = {

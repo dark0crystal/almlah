@@ -1,6 +1,6 @@
 // import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
-import { Link } from "navigation";
+import { Link } from "../../../../navigation";
 import { getLocale } from "next-intl/server";
 // import { getLocale } from 'next-intl/server';
 export default async function Footer() {

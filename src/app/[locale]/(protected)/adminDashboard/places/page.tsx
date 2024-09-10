@@ -1,6 +1,6 @@
 import React from 'react'
-import { prisma } from 'src/lib/prisma';
-import {Link} from 'navigation';
+import { prisma } from '../../../../../lib/prisma';
+import {Link} from '../../../../../../navigation';
 import { getLocale } from 'next-intl/server';
 
 const Page = async() => {

@@ -6,7 +6,7 @@ import ImageUploaderForm from '../../../components/Forms/ImageUploaderForm';
 import PlaceStatusForm from '../../../components/Forms/PlaceStatusForm';
 import { addNewPlace } from './AddNewPlace'; // Import the server action
 import { supabase } from './../../../../lib/supabase';
-import withAuth from '../../../components/withAuth'
+import withAuth from '../../../components/WithAuth';
 import { z } from 'zod';
 
 // Define Zod validation schema

@@ -3,7 +3,7 @@ import LanguageChange from "./LanguageChange";
 import NavMenu from "./NavMenu";
 import MobileMenu from "./MobileMenu";
 import { getLocale, getTranslations } from "next-intl/server";
-import { Link } from "navigation";
+import { Link } from "../../../../navigation";
 
 
 type NavBarProps = {

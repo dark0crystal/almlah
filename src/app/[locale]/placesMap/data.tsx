@@ -1,6 +1,6 @@
 "use server"
-import { supabase } from 'src/lib/supabase';
-import { prisma } from 'src/lib/prisma';
+import { supabase } from '../../../lib/supabase';
+import { prisma } from '../../../lib/prisma';
 
 let cachedPlacesData: { geocode: number[]; id: string; name: string | null; location: string; place_type: number; }[] | null = null;
 

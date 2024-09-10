@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import {Link} from "navigation";
+import {Link} from "../../../../navigation";
 import { FaBars, FaTimes } from "react-icons/fa";
 import LanguageChange from "./LanguageChange";
 import { useLocale } from "next-intl";

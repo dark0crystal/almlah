@@ -1,10 +1,10 @@
 "use server";
-import { prisma } from 'src/lib/prisma';
+import { prisma } from '../../../../lib/prisma';
 import { InfoData } from './page';
-import { authOptions } from 'src/lib/auth';
+import { authOptions } from '../../../../lib/auth';
 import { getServerSession } from 'next-auth';
-import { supabase } from 'src/lib/supabase';
-import { getTranslations } from "next-intl/server";
+// import { supabase } from 'src/lib/supabase';
+// import { getTranslations } from "next-intl/server";
 import { getLocale } from "next-intl/server";
 
 export async function addNewPlace(data: InfoData) {
