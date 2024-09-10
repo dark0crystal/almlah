@@ -1,3 +1,11 @@
+// page.tsx
+'use server';
+import { withAuth } from 'src/app/components/withAuth';
+import AddPlace from './AddPlace'; // Import the component
+
+export default withAuth(AddPlace); // Decorate with auth
+
+// AddPlace.tsx
 'use client';
 import React, { FormEvent, useState, useEffect } from 'react';
 import InfoForm from 'src/app/components/Forms/InfoForm';
@@ -6,7 +14,6 @@ import ImageUploaderForm from 'src/app/components/Forms/ImageUploaderForm';
 import PlaceStatusForm from '../../../components/Forms/PlaceStatusForm';
 import { addNewPlace } from './AddNewPlace'; // Import the server action
 import { supabase } from 'src/lib/supabase';
-import withAuth from 'src/app/components/withAuth';
 import { z } from 'zod';
 
 // Define Zod validation schema
@@ -163,8 +170,6 @@ const AddPlace = () => {
     </div>
   );
 };
-
-export default withAuth(AddPlace);
 
 
 
