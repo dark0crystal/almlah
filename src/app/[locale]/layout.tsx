@@ -5,13 +5,10 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import NextAuthProvider from 'src/providers/NextAuthProvider';
 
-// const nihayaFont =
-
 // const phudu = Phudu({ subsets: ["latin"], weight: ["400", "500", "600", "700", "900"] });
 const alexandriaFont = Alexandria({
-    weight: ["100","200","300","400", "500","600","700","800","900"],
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
     subsets: ["latin"],
-
 });
 
 export const metadata: Metadata = {
@@ -26,7 +23,8 @@ export default async function RootLayout({
     children: React.ReactNode;
     params: { locale: string };
 }) {
-    const messages = await getMessages(locale);
+    // Pass locale as an object property
+    const messages = await getMessages({ locale });
 
     // Determine text direction based on locale
     const direction = locale === 'ar' ? 'rtl' : 'ltr';
@@ -37,7 +35,7 @@ export default async function RootLayout({
     return (
         <html lang={locale} dir={direction}>
             <NextAuthProvider>
-                <body className={alexandriaFont}>
+                <body className={alexandriaFont.className}>
                     <NextIntlClientProvider locale={locale} messages={messages}>
                         <main>
                             {children}
