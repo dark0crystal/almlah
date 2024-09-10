@@ -75,7 +75,7 @@ const AddPlace = () => {
       const formErrors = result.error.format();
       const formattedErrors: Partial<Record<keyof FromData, string[]>> = {};
 
-      // Use type guard to handle error formatting
+      // Handle error formatting
       if (formErrors && typeof formErrors === 'object') {
         for (const key in formErrors) {
           const keyTyped = key as keyof FromData;
@@ -174,6 +174,7 @@ const AddPlace = () => {
 };
 
 export default withAuth(AddPlace);
+
 
 
 
