@@ -35,15 +35,17 @@ export default async function RootLayout({
     
     return (
         <html lang={locale} dir={direction}>
-            <NextAuthProvider>
+            
                 <body className={alexandriaFont.className}>
                     <NextIntlClientProvider locale={locale} messages={messages}>
                         <main>
+                             <NextAuthProvider>
                             {children}
+                            </NextAuthProvider>
                         </main>
                     </NextIntlClientProvider>
                 </body>
-            </NextAuthProvider>
+           
         </html>
     );
 }
