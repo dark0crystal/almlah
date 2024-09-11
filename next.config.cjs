@@ -5,9 +5,9 @@ const withNextIntl = createNextIntlPlugin();
 
 // Define the Next.js configuration
 const nextConfig = {
-  eslint:{
-    ignoreDuringBuilds:true,
-  },
+  // eslint:{
+  //   ignoreDuringBuilds:true,
+  // },
   // experimental: {
   //   fonts: true, // Enable experimental fonts support
   // },
