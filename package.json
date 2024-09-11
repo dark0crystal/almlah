@@ -48,7 +48,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "^20.14.13",
+    "@types/node": "^18.19.50",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18",
     "@types/uuid": "^10.0.0",
