@@ -19,7 +19,7 @@ export default async function UserDashboard() {
   });
 
   if (!user) {
-    return <div>User not found</div>;
+    return <div>User not found not found</div>;
   }
 
   const data = await prisma.place.findMany({
