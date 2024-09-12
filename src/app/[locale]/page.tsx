@@ -34,9 +34,9 @@ return (
         <div>
         <PlacesCount/>
         </div>
-        <div>
+        {/* <div>
           <Cards/>
-        </div>
+        </div> */}
         
         <Footer/>
        
