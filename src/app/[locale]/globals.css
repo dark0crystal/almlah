@@ -12,7 +12,7 @@
     display: flex;
     justify-content: center; /* Centers the iframe horizontally */
     margin-top: 20px; /* Adds some margin to separate the iframe from other content */
-    padding: 10px;
+    padding: 15px;
     background-color: #f7f7d5; /* Optional: Adds a subtle background for better contrast */
     border-radius: 10px; /* Rounds the corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
