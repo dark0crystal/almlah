@@ -113,24 +113,54 @@ const AddPlace = () => {
         ...data,
         placeImages: undefined, // Exclude placeImages from place data submission
       });
-
       if (data.placeImages) {
-        const uploadPromises = data.placeImages.map(async (file) => {
-          const filePath = `${placeId}/${file.name}`;
-          const { error } = await supabase.storage.from('almlahFiles').upload(filePath, file);
-          if (error) throw new Error(`Failed to upload image: ${error.message}`);
-        });
 
-        await Promise.all(uploadPromises);
-
-        // Upload cover image if it exists
-        if (data.placeImages.length > 0) {
-          const coverImage = data.placeImages[0];
-          const coverImagePath = `${placeId}/cover_image/${coverImage.name}`;
-          const { error: coverImageError } = await supabase.storage.from('almlahFiles').upload(coverImagePath, coverImage);
-          if (coverImageError) throw new Error(`Failed to upload cover image: ${coverImageError.message}`);
+      const uploadPromises = data.placeImages.map(async (file) => {
+        const filePath = `${placeId}/${file.name}`;
+        const { error, data: uploadedData } = await supabase.storage.from('almlahFiles').upload(filePath, file);
+        if (error) {
+          console.error(`Failed to upload image: ${error.message}`, { filePath });
+          throw new Error(`Failed to upload image: ${error.message}`);
+        } else {
+          console.log('Uploaded image:', uploadedData);
+        }
+      });
+    
+      
+      // Upload cover image if it exists
+      if (data.placeImages.length > 0) {
+        const coverImage = data.placeImages[0];
+        const coverImagePath = `${placeId}/cover_image/${coverImage.name}`;
+        const { error: coverImageError, data: coverData } = await supabase.storage
+          .from('almlahFiles')
+          .upload(coverImagePath, coverImage);
+        if (coverImageError) {
+          console.error(`Failed to upload cover image: ${coverImageError.message}`, { coverImagePath });
+          throw new Error(`Failed to upload cover image: ${coverImageError.message}`);
+        } else {
+          console.log('Uploaded cover image:', coverData);
         }
       }
+      }
+      
+
+      // if (data.placeImages) {
+      //   const uploadPromises = data.placeImages.map(async (file) => {
+      //     const filePath = `${placeId}/${file.name}`;
+      //     const { error } = await supabase.storage.from('almlahFiles').upload(filePath, file);
+      //     if (error) throw new Error(`Failed to upload image: ${error.message}`);
+      //   });
+
+      //   await Promise.all(uploadPromises);
+
+      //   // Upload cover image if it exists
+      //   if (data.placeImages.length > 0) {
+      //     const coverImage = data.placeImages[0];
+      //     const coverImagePath = `${placeId}/cover_image/${coverImage.name}`;
+      //     const { error: coverImageError } = await supabase.storage.from('almlahFiles').upload(coverImagePath, coverImage);
+      //     if (coverImageError) throw new Error(`Failed to upload cover image: ${coverImageError.message}`);
+      //   }
+      // }
 
       alert('Place added successfully!');
     } catch (error) {

@@ -30,7 +30,7 @@ return (
         <div>
         {/* <iframe width="650" height="450" src="https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=mm&metricTemp=°C&metricWind=m/s&zoom=4&overlay=wind&product=ecmwf&level=surface&lat=29.776&lon=50.585&detailLat=22.19058396490109&detailLon=59.36007499694825&marker=true" frameBorder="0"></iframe> */}
         </div>
-        <Link className="flex justify-center items-center bg-[#fbda5f] md:p-4 p-3 rounded-full w-auto gap-3 my-20"  href='/placesMap'><span className="md:text-5xl text-3xl">🗺️</span><h1 className="md:text-2xl md:font-bold text-lg font-bold">{t("goMap")}</h1></Link>
+        <Link className="flex justify-center items-center bg-[#fbda5f] md:p-4 p-3 rounded-full w-auto gap-3 my-16"  href='/placesMap'><span className="md:text-5xl text-3xl">🗺️</span><h1 className="md:text-2xl md:font-bold text-lg font-bold">{t("goMap")}</h1></Link>
         <div>
         <PlacesCount/>
         </div>
