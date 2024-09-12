@@ -13,6 +13,7 @@ interface PlacesMapLayoutProps {
 }
 
 const PlacesMapLayout = ({ children }: PlacesMapLayoutProps) => {
+
   const locale = useLocale();
   const t = useTranslations('mapPage');
   const [toggle, setToggle] = useState(false);
@@ -115,8 +116,8 @@ const PlacesMapLayout = ({ children }: PlacesMapLayoutProps) => {
       <div className={`bg-yellow-200 ${toggle ? 'h-[75vh]' : 'h-[15vh]'} md:h-[100vh] fixed bottom-0 md:bottom-auto md:right-0 w-screen md:w-[500px] duration-500`}>
         <div className='bg-yellow-200 h-[8vh] w-full flex justify-around items-center border-b-[1px] border-black p-2'>
           <a href={`/${locale}`}>{t('brand')}</a>
-          <button className='md:hidden' onClick={() => setToggle(!toggle)}>
-            {toggle ? '↓' : '↑'}
+          <button className='md:hidden bg-white w-8 p-2 rounded-full' onClick={() => setToggle(!toggle)}>
+            {toggle ? <span>↓</span>: <span>↑</span>}
           </button>
           <button onClick={() => router.back()}>←</button>
         </div>
