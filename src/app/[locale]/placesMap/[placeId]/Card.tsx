@@ -5,38 +5,71 @@ import PlaceType from "../../../components/styledData/PlaceType";
 import Camping from "../../../components/styledData/Camping";
 import Shady from "../../../components/styledData/Shady";
 
-
 type CardProps = {
-    placeId: string; // Define the type for the props
-  };
-  
-  export default async function Card({ placeId }: CardProps) {
+  placeId: string; // Define the type for the props
+};
 
-    const placeDetails = await prisma.place.findUnique({
-        where: {
-          id:placeId as string,
-        },
-      });
-      const placeStatus = await prisma.place_status.findUnique({
-        where: {
-          place_id:placeId as string,
-        },
-      });
-    return (
-      <div >
-        
-        <CardImages placeId={placeId}/>
-        <div>
-            <h1 className="text-xl ">{placeDetails?.name_ar}</h1>
-            <Governorate style="text-xl text-gray" governorate={placeDetails?.governorate ?? 0}/>
-            <PlaceType style="text-lg text-gray" placeType={placeDetails?.place_type ?? 0}/>
-            <Camping style="text-lg text-gray" camping={placeStatus?.is_camping ?? 0}/>
-            <Shady style="text-lg text-gray" shady={placeStatus?.is_shady_place ?? 0}/>
-            <h1>{placeDetails?.description_ar}</h1>
-            
-            
-        </div>
-      </div>
-    );
+export default async function Card({ placeId }: CardProps) {
+  // Fetch place details
+  const placeDetails = await prisma.place.findUnique({
+    where: {
+      id: placeId as string,
+    },
+  });
+
+  // Fetch place status (if needed)
+  const placeStatus = await prisma.place_status.findUnique({
+    where: {
+      place_id: placeId as string,
+    },
+  });
+
+  // Declare latitude and longitude variables outside the if block
+  let latitude: number | null = null;
+  let longitude: number | null = null;
+
+  // Process the location coordinates if the place exists
+  if (placeDetails && placeDetails.location) {
+    [latitude, longitude] = placeDetails.location
+      .split(',')
+      .map((coord) => parseFloat(coord.trim()));
+
+    console.log(`Geocode: [${latitude}, ${longitude}]`);
+  } else {
+    console.log('place details are null');
   }
-  
+
+  return (
+    <div>
+      <CardImages placeId={placeId} />
+      <div>
+        <h1 className="text-xl ">{placeDetails?.name_ar}</h1>
+        <Governorate
+          style="text-xl text-gray"
+          governorate={placeDetails?.governorate ?? 0}
+        />
+        <PlaceType
+          style="text-lg text-gray"
+          placeType={placeDetails?.place_type ?? 0}
+        />
+        <Camping
+          style="text-lg text-gray"
+          camping={placeStatus?.is_camping ?? 0}
+        />
+        <Shady style="text-lg text-gray" shady={placeStatus?.is_shady_place ?? 0} />
+        <h1>{placeDetails?.description_ar}</h1>
+      </div>
+      {latitude !== null && longitude !== null ? (
+        <div className="iframe-container">
+          <iframe
+            className="iframe-map"
+            src={`https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=mm&metricTemp=°C&metricWind=m/s&zoom=4&overlay=wind&product=ecmwf&level=surface&lat=${latitude}&lon=${longitude}&detailLat=${latitude}&detailLon=${longitude}&marker=true`}
+            frameBorder="0"
+          ></iframe>
+        </div>
+      ) : (
+        <p>Location data is unavailable</p>
+      )}
+    </div>
+  );
+}

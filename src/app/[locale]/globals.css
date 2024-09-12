@@ -6,3 +6,23 @@
 *{
     box-sizing: border-box;
 }
+
+/* styles.css or your global CSS file */
+.iframe-container {
+    display: flex;
+    justify-content: center; /* Centers the iframe horizontally */
+    margin-top: 20px; /* Adds some margin to separate the iframe from other content */
+    padding: 10px;
+    background-color: #f7f7d5; /* Optional: Adds a subtle background for better contrast */
+    border-radius: 10px; /* Rounds the corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+  }
+  
+  .iframe-map {
+    width: 100%;
+    max-width: 800px; /* Restrict the maximum width */
+    height: 450px; /* Fixed height */
+    border-radius: 10px; /* Optional: Round the iframe borders */
+    border: none; /* Removes default border */
+  }
+  
