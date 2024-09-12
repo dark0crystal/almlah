@@ -5,6 +5,8 @@ import { getPlacesData, getPlacesImages } from './data';
 import Image from 'next/image';
 import { Virtuoso } from 'react-virtuoso';
 import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
+import { MdOutlineAddLocationAlt } from "react-icons/md";
 
 type Place = {
   id: string;  // Updated to match the fetched data type
@@ -14,6 +16,7 @@ type Place = {
 };
 
 export default function PlacesMap() {
+  const t = useTranslations('mapPage')
   const locale = useLocale().substring(0, 2);
   const [places, setPlaces] = useState<Place[]>([]);
   const [placeImages, setPlaceImages] = useState<{ [key: string]: string }>({});  // Use string for the key type
@@ -40,7 +43,11 @@ export default function PlacesMap() {
 
   return (
     <div>
-      <h1 className="bg-white">Places</h1>
+      <div className='flex flex-row justify-around bg-yellow-100 rounded-2xl mb-3 p-2'>
+      <h1 >{t('places')}</h1>
+      <Link href="/addPlace"  locale={locale} className="hover:text-gray-400 text-xl"><MdOutlineAddLocationAlt /></Link>
+      
+      </div>
       <Virtuoso
         className="!h-[85vh]"
         data={groupedPlaces}

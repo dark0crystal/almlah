@@ -5,6 +5,7 @@ import {Link} from "../../../../navigation";
 import { FaBars, FaTimes } from "react-icons/fa";
 import LanguageChange from "./LanguageChange";
 import { useLocale } from "next-intl";
+import NavMenu from "./NavMenu";
 
 type MobileMenuProps = {
   navLinks: { direction: string; name: string }[];
@@ -35,6 +36,7 @@ export default function MobileMenu({ navLinks }: MobileMenuProps) {
               <h1 className="text-xl font-black">{navLink.name}</h1>
             </Link>
           ))}
+          <NavMenu/>
         </div>
         <LanguageChange />
       </div>

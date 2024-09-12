@@ -17,21 +17,24 @@ export default async function NavBar({ style }: NavBarProps) {
   const navLinks = [
     { direction: "/about", name: t("about") },
     { direction: "/placesMap", name: t("map") },
+    
   ];
 
   return (
     <div dir={t("dir")}>
-      <nav className={`${style} flex items-center justify-between p-2 lg:p-3 border border-gray-300 rounded-full w-[90vw] md:w-[70vw] lg:w-full `}>
+      <nav className={`${style} flex items-center justify-between p-2 lg:p-2 border border-gray-300 rounded-full w-[90vw] md:w-[70vw] lg:w-full `}>
         <div className="flex items-center">
           <Brand />
         </div>
         <div className="hidden lg:flex items-center space-x-6">
           {navLinks.map((navLink, index) => (
             <Link key={index} locale={locale} href={navLink.direction}>
-              <h1 className="text-xl mx-2 font-black">{navLink.name}</h1>
+              <h1 className="text-lg  mx-2 font-normal">{navLink.name}</h1>
             </Link>
           ))}
+          
           <NavMenu />
+          
           <LanguageChange />
         </div>
         <MobileMenu navLinks={navLinks} />
