@@ -107,7 +107,7 @@ const PlacesMapLayout = ({ children }: PlacesMapLayoutProps) => {
               },
             }}
           >
-            <Popup>{getEmojiForPlaceType(marker.place_type)}</Popup>
+            {/* <Popup>{getEmojiForPlaceType(marker.place_type)}</Popup> */}
           </Marker>
         ))}
       </MapContainer>
