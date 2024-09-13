@@ -6,7 +6,7 @@ import { getLocale } from 'next-intl/server';
 const Page = async() => {
   const locale = (await getLocale()).substring(0,2)
   const places =await prisma.place.findMany(
-    {where:
+    {where: 
       { is_checked:false},
       select:{
         id:true,
@@ -21,7 +21,7 @@ const Page = async() => {
     <div>
       
         {places? ( places.map((place ,index )=>(
-          <Link href={`/places/${place.id}`} locale={locale} key={index} className='bg-gray-50 m-6 p-6'>
+          <Link href={`/${place.id}`} locale={locale} key={index} className='bg-gray-50 m-6 p-6'>
        
             {place.name_ar ? (<h1>{place.name_ar}</h1>):(<p>arabic name null</p>)}
           
