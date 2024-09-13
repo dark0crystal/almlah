@@ -58,10 +58,13 @@
             "placeStatus":"حالة المكان",
             "selectCamping":"هل يسمح التخييم بالمكان",
             "allowed":"التخييم مسموح",
+            "selectShady":"هل يوجد مظلات بالمكان",
             "notAllowed":"التخييم غير مسموح",
             "allowedButNotRecommended":"التخييم مسموح لكن لا يفضل",
             "shady":"يوجد مظلات بالمكان",
-            "notShady":"لا يوجد مظلات بالمكان"
+            "notShady":"لا يوجد مظلات بالمكان",
+            "placeServices":"خدمات المكان"
+
 
              
        

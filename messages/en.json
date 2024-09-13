@@ -57,11 +57,13 @@
             "ImageUploader":"Upload Images For The Place:",
             "placeStatus":"Place Status",
             "selectCamping ":"Is Camping Allowed ",
+            "selectShady":"is the place shady ?",
             "allowed":"Allowed",
             "notAllowed":"Not Allowed",
             "allowedButNotRecommended":"Allowed But Not Recommended",
             "shady":"Shady places Available",
-            "notShady":"No Shady Places Available"
+            "notShady":"No Shady Places Available",
+            "placeServices":"Place Services"
 
    
           

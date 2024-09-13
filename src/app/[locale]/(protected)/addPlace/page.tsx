@@ -113,6 +113,7 @@ const AddPlace = () => {
         ...data,
         placeImages: undefined, // Exclude placeImages from place data submission
       });
+
       if (data.placeImages) {
 
       const uploadPromises = data.placeImages.map(async (file) => {
@@ -128,7 +129,7 @@ const AddPlace = () => {
     
       
       // Upload cover image if it exists
-      if (data.placeImages.length > 0) {
+    
         const coverImage = data.placeImages[0];
         const coverImagePath = `${placeId}/cover_image/${coverImage.name}`;
         const { error: coverImageError, data: coverData } = await supabase.storage
@@ -141,7 +142,7 @@ const AddPlace = () => {
           console.log('Uploaded cover image:', coverData);
         }
       }
-      }
+      
       
 
       // if (data.placeImages) {

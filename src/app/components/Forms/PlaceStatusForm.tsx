@@ -40,9 +40,9 @@ export default function InfoForm({ isShadyPlace, isCamping, place_services, road
         value={isShadyPlace ?? ""}
         onChange={(e) => updateFields({ isShadyPlace: e.target.value ? +e.target.value : null })}
       >
-        <option value="" disabled>Select Shady Option</option>
-        <option value={1}>Shady</option>
-        <option value={2}>Not Shady</option>
+        <option value="" disabled>{t('selectShady')}</option>
+        <option value={1}>{t('shady')}</option>
+        <option value={2}>{t('notShady')}</option>
       </select>
       {errors.isShadyPlace && <p className="text-red-500">{errors.isShadyPlace}</p>}
       <select
@@ -52,7 +52,7 @@ export default function InfoForm({ isShadyPlace, isCamping, place_services, road
         value={place_services ?? ""}
         onChange={(e) => updateFields({ place_services: e.target.value ? +e.target.value : null })}
       >
-        <option value="" disabled>Select Place Services</option>
+        <option value="" disabled>{t('placeServices')}</option>
         <option value={1}>Nothing</option>
         <option value={2}>Few</option>
         <option value={3}>A lot</option>
