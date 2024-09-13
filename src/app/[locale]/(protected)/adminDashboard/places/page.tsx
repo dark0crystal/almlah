@@ -21,7 +21,7 @@ const Page = async() => {
     <div>
       
         {places? ( places.map((place ,index )=>(
-          <Link href={`/${place.id}`} locale={locale} key={index} className='bg-gray-50 m-6 p-6'>
+          <Link href={`/adminDashboard/places/${place.id}`} locale={locale} key={index} className='bg-gray-50 m-6 p-6'>
        
             {place.name_ar ? (<h1>{place.name_ar}</h1>):(<p>arabic name null</p>)}
           
