@@ -2,7 +2,7 @@
 import { supabase } from '../../../lib/supabase';
 import { prisma } from '../../../lib/prisma';
 
-let cachedPlacesData: { geocode: number[]; id: string; name: string | null; location: string; place_type: number; }[] | null = null;
+let cachedPlacesData: { geocode: number[]; id: string; name_ar: string | null; name_en: string | null; location: string; place_type: number; }[] | null = null;
 
 export async function getPlacesData() {
   if (!cachedPlacesData) {
@@ -15,6 +15,7 @@ export async function getPlacesData() {
         location: true,
         id: true,
         name_ar: true,
+        name_en:true ,
         place_type: true,
       },
     });
@@ -26,7 +27,8 @@ export async function getPlacesData() {
       return {
         geocode: [latitude, longitude],
         id: place.id,
-        name: place.name_ar,
+        name_ar: place.name_ar,
+        name_en: place.name_en,
         location: place.location,
         place_type: place.place_type,
       };

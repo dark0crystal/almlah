@@ -9,31 +9,37 @@ import { useTranslations } from 'next-intl';
 import { MdOutlineAddLocationAlt } from "react-icons/md";
 
 type Place = {
-  id: string;  // Updated to match the fetched data type
-  name: string;
+  id: string;  // Ensure ID is a string
+  name_ar: string;
+  name_en: string;
   location: string;
-  place_type: number;  // Ensure that the place_type is included in your type definition
+  place_type: number;
 };
 
 export default function PlacesMap() {
-  const t = useTranslations('mapPage')
+  const t = useTranslations('mapPage');
   const locale = useLocale().substring(0, 2);
   const [places, setPlaces] = useState<Place[]>([]);
-  const [placeImages, setPlaceImages] = useState<{ [key: string]: string }>({});  // Use string for the key type
+  const [placeImages, setPlaceImages] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     async function fetchData() {
       const fetchedPlaces = await getPlacesData();
       const fetchedPlaceImages = await getPlacesImages();
 
-      // Filter out any places with null names
-      const validPlaces = fetchedPlaces.filter((place) => place.name !== null) as Place[];
+      let validPlaces: Place[] = [];
 
-      setPlaces(validPlaces);
-      setPlaceImages(fetchedPlaceImages);
+      if (locale === 'ar') {
+        validPlaces = fetchedPlaces.filter((place) => place.name_ar !== null) as Place[];
+      } else if (locale === 'en') {
+        validPlaces = fetchedPlaces.filter((place) => place.name_en !== null) as Place[];
+      }
+
+      setPlaces(validPlaces); // Set the filtered places based on locale
+      setPlaceImages(fetchedPlaceImages); // Set the images
     }
     fetchData();
-  }, []);
+  }, [locale]); // Add locale as a dependency to refetch data when it changes
 
   // Group places in pairs for rendering
   const groupedPlaces = [];
@@ -44,10 +50,12 @@ export default function PlacesMap() {
   return (
     <div>
       <div className='flex flex-row justify-around bg-yellow-100 rounded-2xl mb-3 p-2'>
-      <h1 >{t('places')}</h1>
-      <Link href="/addPlace"  locale={locale} className="hover:text-gray-400 text-xl"><MdOutlineAddLocationAlt /></Link>
-      
+        <h1>{t('places')}</h1>
+        <Link href="/addPlace" locale={locale} className="hover:text-gray-400 text-xl">
+          <MdOutlineAddLocationAlt />
+        </Link>
       </div>
+
       <Virtuoso
         className="!h-[85vh]"
         data={groupedPlaces}
@@ -63,7 +71,7 @@ export default function PlacesMap() {
                         loading="lazy"
                         fill
                         style={{ objectFit: 'cover' }}
-                        alt={`Image of ${place.name}`}
+                        alt="image"
                       />
                     ) : (
                       <p>No image available</p>
@@ -71,7 +79,11 @@ export default function PlacesMap() {
                   </Link>
                 </div>
                 <div>
-                  <p>{place.name}</p>
+                  {locale === 'ar' ? (
+                    <p>{place.name_ar}</p>
+                  ) : (
+                    <p>{place.name_en}</p>
+                  )}
                 </div>
               </div>
             ))}
@@ -81,4 +93,5 @@ export default function PlacesMap() {
     </div>
   );
 }
+
 

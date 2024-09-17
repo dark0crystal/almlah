@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { GiCampingTent } from "react-icons/gi";
 
 type CampingProps ={
     camping:number
@@ -20,7 +21,8 @@ export default async function Camping({camping , style}:CampingProps){
     : "Unknown";
     return(
         <div className={`${style}`}>
-            {campingText}
+     
+            {campingText} <GiCampingTent />
         </div>
     )
 }
