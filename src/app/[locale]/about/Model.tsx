@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { motion } from "framer-motion-3d"
@@ -22,9 +22,12 @@ const Model: React.FC<ModelProps> = ({ activeMenu }) => {
   const dimension = useDimension();
   const mouse = useMouse();
   const opacity = useMotionValue(0);
-  const textures = projects.map(project => useTexture(project.src))
-  const { width, height } = textures[0].image;
-  
+
+  // Move the hook call outside of the map
+  const textures = useTexture(projects.map(project => project.src));
+
+  const { width, height } = textures[0]?.image || { width: 1, height: 1 }; // Handle the case where textures might be undefined initially
+
   // Aspect ratio calculation
   const aspectRatio = width / height;
 
@@ -32,15 +35,15 @@ const Model: React.FC<ModelProps> = ({ activeMenu }) => {
   const desiredHeight = 3; // Adjust this value to change the image height
 
   // Calculate corresponding width to maintain aspect ratio
-  const desiredWidth = (desiredHeight-0.2) * aspectRatio;
+  const desiredWidth = (desiredHeight - 0.2) * aspectRatio;
 
   const smoothMouse = {
     x: useMotionValue(0),
     y: useMotionValue(0)
-  }   
+  }
 
   useEffect(() => {
-    if(activeMenu !== null) {
+    if (activeMenu !== null) {
       plane.current.material.uniforms.uTexture.value = textures[activeMenu]
       animate(opacity, 1, { duration: 0.2, onUpdate: latest => plane.current.material.uniforms.uAlpha.value = latest })
     } else {
@@ -73,18 +76,18 @@ const Model: React.FC<ModelProps> = ({ activeMenu }) => {
   const x = useTransform(smoothMouse.x, [0, dimension.width], [-1 * viewport.width / 2, viewport.width / 2])
   const y = useTransform(smoothMouse.y, [0, dimension.height], [viewport.height / 2, -1 * viewport.height / 2])
 
-  return(
-  <>
-    <motion.mesh  position-x={x} position-y={y} ref={plane} scale={[desiredWidth, desiredHeight, 1]}>
-    <planeGeometry args={[1, 1, 15, 15]} />
-    <shaderMaterial 
-      vertexShader={vertex}
-      fragmentShader={fragment}
-      uniforms={uniforms.current}
-      transparent
-    />
-  </motion.mesh>
-  </>
+  return (
+    <>
+      <motion.mesh position-x={x} position-y={y} ref={plane} scale={[desiredWidth, desiredHeight, 1]}>
+        <planeGeometry args={[1, 1, 15, 15]} />
+        <shaderMaterial
+          vertexShader={vertex}
+          fragmentShader={fragment}
+          uniforms={uniforms.current}
+          transparent
+        />
+      </motion.mesh>
+    </>
   )
 }
 
