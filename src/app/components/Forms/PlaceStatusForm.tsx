@@ -53,9 +53,9 @@ export default function InfoForm({ isShadyPlace, isCamping, place_services, road
         onChange={(e) => updateFields({ place_services: e.target.value ? +e.target.value : null })}
       >
         <option value="" disabled>{t('placeServices')}</option>
-        <option value={1}>Nothing</option>
-        <option value={2}>Few</option>
-        <option value={3}>A lot</option>
+        <option value={1}>{t('nothing')}</option>
+        <option value={2}>{t('few')}</option>
+        <option value={3}>{t('alot')}</option>
       </select>
       {errors.place_services && <p className="text-red-500">{errors.place_services}</p>}
       <select
@@ -65,10 +65,10 @@ export default function InfoForm({ isShadyPlace, isCamping, place_services, road
         value={road ?? ""}
         onChange={(e) => updateFields({ road: e.target.value ? +e.target.value : null })}
       >
-        <option value="" disabled>Select Road Status</option>
-        <option value={1}>Easy</option>
-        <option value={2}>Mid</option>
-        <option value={3}>Tough</option>
+        <option value="" disabled>{t('roadStatus')}</option>
+        <option value={1}>{t('easy')}</option>
+        <option value={2}>{t('mid')}</option>
+        <option value={3}>{t('tough')}</option>
       </select>
       {errors.road && <p className="text-red-500">{errors.road}</p>}
     </FormWrapper>

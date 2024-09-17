@@ -48,7 +48,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/app/[locale]/about/policy"  ],
   "exclude": [
     "node_modules"
   ]

@@ -63,7 +63,15 @@
             "allowedButNotRecommended":"Allowed But Not Recommended",
             "shady":"Shady places Available",
             "notShady":"No Shady Places Available",
-            "placeServices":"Place Services"
+            "placeServices":"Place Services",
+            "alot":"Alot",
+            "few":"Few",
+            "nothing":"Nothing",
+            "roadStatus":"Select place's road status",
+            "easy":"Easy",
+            "mid":"Mid",
+            "tough":"Tough",
+            "submit":"Submit"
 
    
           
