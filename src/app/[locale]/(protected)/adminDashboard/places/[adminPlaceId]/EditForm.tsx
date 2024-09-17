@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import React, { useState, useEffect } from 'react';
 
-export default function EditForm({ params }: { params: { adminPlaceId: string | undefined } }) {
+export default function EditForm({ params  }: { params: { adminPlaceId: string | undefined } }) {
   const t = useTranslations('Forms');
   const [formValues, setFormValues] = useState({
     name_ar: '',
