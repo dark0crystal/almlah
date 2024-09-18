@@ -9,10 +9,12 @@ export default async function About() {
     return (
         <div className="flex items-center  flex-col relative">
             
-            <Link href="/" locale={locale} className="absolute top-10 left-10 text-lg text-violet-500 hover:text-violet-700">
-                Home
+            <Link href="/" locale={locale} >
+               <div className="absolute top-8 left-8 text-lg text-black border border-black hover:bg-black hover:text-[#fbda5f]  rounded-full p-2 ">
+                        Home
+               </div>
             </Link>
-            <div className="flex flex-col justify-center   rounded-lg  p-6 leading-loose w-[90vw] md:w-[60vw] lg:w-[50vw]">
+            <div className="flex flex-col justify-center h-[85vh] rounded-lg  p-6 leading-loose w-[90vw] md:w-[60vw] lg:w-[50vw]">
             <h1 className="text-xl font-bold" >{t("brand")}</h1>
             <div className="flex my-1 flex-col justify-center items-center text-center   ">
             <h1 className="text-xl">{t("us")}</h1>
