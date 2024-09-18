@@ -58,20 +58,22 @@
             "placeStatus":"Place Status",
             "selectCamping ":"Is Camping Allowed ",
             "selectShady":"is the place shady ?",
-            "allowed":"Allowed",
-            "notAllowed":"Not Allowed",
-            "allowedButNotRecommended":"Allowed But Not Recommended",
+            "allowed":"Camping Allowed",
+            "notAllowed":"Camping Not Allowed",
+            "allowedButNotRecommended":"Camping Allowed But Not Recommended",
             "shady":"Shady places Available",
             "notShady":"No Shady Places Available",
             "placeServices":"Place Services",
-            "alot":"Alot",
-            "few":"Few",
-            "nothing":"Nothing",
+            "alot":"Alot Of Services",
+            "few":"Few Services",
+            "nothing":"No Services",
             "roadStatus":"Select place's road status",
             "easy":"Easy",
             "mid":"Mid",
             "tough":"Tough",
-            "submit":"Submit"
+            "submit":"Submit",
+            "googleMap":"Open Google Maps"
+            
 
    
           

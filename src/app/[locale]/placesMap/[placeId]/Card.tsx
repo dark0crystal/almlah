@@ -5,18 +5,25 @@ import PlaceType from "../../../components/styledData/PlaceType";
 import Camping from "../../../components/styledData/Camping";
 import Shady from "../../../components/styledData/Shady";
 import { getLocale } from "next-intl/server";
-
+import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import PlaceServices from "../../../components/styledData/PlaceServices";
 type CardProps = {
   placeId: string; // Define the type for the props
 };
 
 export default async function Card({ placeId }: CardProps) {
+  const t= await getTranslations('Forms')
   const locale = await getLocale()
   // Fetch place details
   const placeDetails = await prisma.place.findUnique({
     where: {
       id: placeId as string,
     },
+    include: {
+            status: true,  // This includes the related place_status
+          },
+
   });
 
   // Fetch place status (if needed)
@@ -45,26 +52,34 @@ export default async function Card({ placeId }: CardProps) {
     <div>
       <CardImages placeId={placeId}  />
       <div >
-        <h1 className="font-normal">test test</h1>
         <div className="mt-2 flex flex-row items-center text-lg">
       {locale ==='ar'? (<h1>{placeDetails?.name_ar}</h1>):(<h1>{placeDetails?.name_en}</h1>)}  
       <span className="mx-1"> , </span>
           <Governorate
-          style="text-lg text-gray-500 font-normal"
+          style="text-lg  font-normal"
           governorate={placeDetails?.governorate ?? 0}
         />
       
         </div>
         <PlaceType
-          style="text-lg text-gray-500 font-normal"
+          style="text-lg font-normal"
           placeType={placeDetails?.place_type ?? 0}
         />
         <Camping
-          style="text-lg text-gray-500 font-light flex flex-row gap-2 items-center"
+          style="text-lg  font-light flex flex-row gap-2 items-center"
           camping={placeStatus?.is_camping ?? 0}
         />
-        <Shady style="text-lg  text-gray-500 font-light" shady={placeStatus?.is_shady_place ?? 0} />
-        {locale ==='ar'? (<h1>{placeDetails?.description_ar}</h1>):(<h1>{placeDetails?.description_en}</h1>)}
+        <Shady style="text-lg font-light" shady={placeStatus?.is_shady_place ?? 0} />
+        <PlaceServices style="text-lg font-light" placeServices={placeStatus?.place_services ?? 0}/>
+        <div className="my-2 bg-[#f7f7d5] p-4 border rounded-3xl">
+            {locale ==='ar'? (<h1>{placeDetails?.description_ar}</h1>):(<h1>{placeDetails?.description_en}</h1>)}
+        </div>
+        <Link href={`https://www.google.com/maps?q=${latitude},${longitude}`} target="_blank" rel="noopener noreferrer">
+          <div className="border border-black p-4 w-full rounded-full text-center mt-6 mb-6 cursor-pointer transition-all duration-300 hover:bg-black hover:text-yellow-200 hover:shadow-lg">
+            {t('googleMap')}
+          </div>
+      </Link>
+
 
       </div>
       {latitude !== null && longitude !== null ? (
