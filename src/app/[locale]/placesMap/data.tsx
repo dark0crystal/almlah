@@ -9,7 +9,7 @@ export async function getPlacesData() {
     console.log("Fetching places data from the database...");
     const places = await prisma.place.findMany({
       where: {
-        is_checked: false
+        is_checked: true
       },
       select: {
         location: true,
