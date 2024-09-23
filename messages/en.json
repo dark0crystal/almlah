@@ -97,11 +97,17 @@
         "addPlace":"Add Tourism Place"
     },
     "about":{
-        "soon":"Soooon"
+        "soon":"Soooon",
+        "about":"About",
+        "policy":"Policy",
+        "approach":"Approach",
+        "us": "A team aspiring for Oman to have a significant economic share, where the tourism sector plays an active role. This is achieved by documenting Omani tourist destinations in a way that meets the desires and expectations of tourists regarding their chosen destinations. We ensure a unique experience that introduces them to the beauty and diversity of Oman's nature and its rich culture.",
+        "brand":"ALMLAH"
     },
     "mapPage":{
         "brand":"ALMLAH",
         "places":"places"
+       
     }
 }
 
