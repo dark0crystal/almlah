@@ -51,7 +51,7 @@ export default function CardImages({ placeId }: CardImagesProps) {
           onClick={handleImageClick}
         />
       </div>
-      <div className="image-thumbnails mt-4 flex space-x-2">
+      <div className="image-thumbnails mt-4 flex space-x-2 flex-wrap justify-center">
         {images.map((img, index) => (
           <Image
             key={index}

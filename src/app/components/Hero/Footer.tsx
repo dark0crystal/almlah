@@ -32,19 +32,11 @@ export default async function Footer() {
           </div>
 
           <div className="flex flex-col mb-6 md:mb-0">
-            <h2 className="text-lg font-semibold mb-4">Follow Us</h2>
+            <h2 className="text-lg font-semibold mb-4">Developed by</h2>
             <div className="flex space-x-4">
-              <Link href="https://facebook.com" target="_blank" className="hover:text-gray-400">
-                <i className="fab fa-facebook-f"></i>
-              </Link>
-              <Link href="https://twitter.com" target="_blank" className="hover:text-gray-400">
-                <i className="fab fa-twitter"></i>
-              </Link>
-              <Link href="https://instagram.com" target="_blank" className="hover:text-gray-400">
-                <i className="fab fa-instagram"></i>
-              </Link>
-              <Link href="https://linkedin.com" target="_blank" className="hover:text-gray-400">
-                <i className="fab fa-linkedin-in"></i>
+            
+              <Link href="https://www.instagram.com/_5lo_9/" target="_blank" className="bg-yellow-100 text-black p-3 rounded-full hover:text-gray-400">
+                <i className="fab fa-instagram">Al-Mardas</i>
               </Link>
             </div>
           </div>
