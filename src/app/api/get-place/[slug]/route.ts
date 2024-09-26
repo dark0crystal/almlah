@@ -22,6 +22,7 @@ export async function GET(req: Request, { params }: { params: { slug: string } }
       return new Response('Place not found', { status: 404 });
     }
     console.log("the place ", place.description_ar)
+    console.log("the place ", place.is_checked)
     // Return the place as JSON
     return NextResponse.json({ place });
   } catch (error) {

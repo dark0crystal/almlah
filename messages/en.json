@@ -72,8 +72,9 @@
             "mid":"Mid",
             "tough":"Tough",
             "submit":"Submit",
-            "googleMap":"Open Google Maps"
-            
+            "googleMap":"Open Google Maps",
+            "checked": "checked",
+            "notChecked":"notChecked"
 
    
           

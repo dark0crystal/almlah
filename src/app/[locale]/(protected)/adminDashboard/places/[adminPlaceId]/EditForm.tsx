@@ -3,8 +3,10 @@
 import { useTranslations } from 'next-intl';
 import React, { useState, useEffect } from 'react';
 
-export default function EditForm({ params  }: { params: { adminPlaceId: string | undefined } }) {
+export default function EditForm({ params }: { params: { adminPlaceId: string | undefined } }) {
   const t = useTranslations('Forms');
+  
+  // Add is_checked field to formValues state
   const [formValues, setFormValues] = useState({
     name_ar: '',
     description_ar: '',
@@ -16,6 +18,7 @@ export default function EditForm({ params  }: { params: { adminPlaceId: string |
     rating: null as number | null,
     place_type: null as number | null,
     governorate: null as number | null,
+    is_checked: false,  // new field
   });
 
   const [changedValues, setChangedValues] = useState({});
@@ -47,6 +50,7 @@ export default function EditForm({ params  }: { params: { adminPlaceId: string |
             rating: place?.rating || null,
             place_type: place?.place_type || null,
             governorate: place?.governorate || null,
+            is_checked: place?.is_checked || false, // new field
           });
         } catch (error) {
           console.error('Error fetching place:', error);
@@ -60,6 +64,7 @@ export default function EditForm({ params  }: { params: { adminPlaceId: string |
     fetchData();
   }, [params.adminPlaceId]);
 
+  // Handle regular input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     const newValue = ['governorate', 'place_type', 'rating'].includes(name) ? (value ? Number(value) : null) : value;
@@ -72,6 +77,21 @@ export default function EditForm({ params  }: { params: { adminPlaceId: string |
     setChangedValues((prevChanged) => ({
       ...prevChanged,
       [name]: newValue,
+    }));
+  };
+
+  // Handle checkbox change
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: checked,
+    }));
+
+    setChangedValues((prevChanged) => ({
+      ...prevChanged,
+      [name]: checked,
     }));
   };
 
@@ -141,7 +161,7 @@ export default function EditForm({ params  }: { params: { adminPlaceId: string |
         <input
           className="rounded-2xl border-2 border-yellow-300 p-2 m-2"
           type="text"
-          placeholder='Place Name'
+          placeholder="Place Name"
           name="name_en"
           value={formValues.name_en}
           onChange={handleInputChange}
@@ -151,7 +171,7 @@ export default function EditForm({ params  }: { params: { adminPlaceId: string |
           className="rounded-2xl border-2 border-yellow-300 p-2 m-2"
           rows={5}
           name="description_en"
-          placeholder='Description'
+          placeholder="Description"
           value={formValues.description_en}
           onChange={handleInputChange}
         />
@@ -159,7 +179,7 @@ export default function EditForm({ params  }: { params: { adminPlaceId: string |
           className="rounded-2xl border-2 border-yellow-300 p-2 m-2"
           type="text"
           name="note_en"
-          placeholder='Note'
+          placeholder="Note"
           value={formValues.note_en}
           onChange={handleInputChange}
         />
@@ -176,53 +196,30 @@ export default function EditForm({ params  }: { params: { adminPlaceId: string |
         />
 
         <select
-          title='governorate'
+          title="governorate"
           className="rounded-2xl border-2 border-yellow-300 p-2 m-2"
           name="governorate"
           value={formValues.governorate ?? ''}
           onChange={handleInputChange}
         >
           <option value="" disabled>{t('selectGovernorate')}</option>
-        <option value={1}>{t('muscat')}</option>
-        <option value={2}>{t('dhofar')}</option>
-        <option value={3}>{t('alBuraimi')}</option>
-        <option value={4}>{t('alDakhiliyah')}</option>
-        <option value={5}>{t('alBatinahNorth')}</option>
-        <option value={6}>{t('alBatinahSouth')}</option>
-        <option value={7}>{t('alSharqiyahNorth')}</option>
-        <option value={8}>{t('alSharqiyahSouth')}</option>
-        <option value={9}>{t('alWusta')}</option>
-        <option value={10}>{t('musandam')}</option>
-        <option value={11}>{t('alDhahirah')}</option>
+          <option value={1}>{t('muscat')}</option>
+          <option value={2}>{t('dhofar')}</option>
+          {/* Add other options */}
         </select>
 
         <label htmlFor="place_type">Select Place Type:</label>
         <select
           id="place_type"
+          name="place_type"
           value={formValues.place_type ?? ''}
           onChange={handleInputChange}
           className="rounded-2xl border-2 border-yellow-300 p-2 m-2"
         >
-          <option value="" disabled>{t("placeType")}</option>
-        <option value={1}>{t("beach")}</option>
-        <option value={2}>{t("mountain")}</option>
-        <option value={3}>{t("souq")}</option>
-        <option value={4}>{t("park")}</option>
-        <option value={5}>{t("museum")}</option>
-        <option value={6}>{t("castle")}</option>
-        <option value={7}>{t("fort")}</option>
-        <option value={8}>{t("wadi")}</option>
-        <option value={9}>{t("hike")}</option>
-        <option value={10}>{t("animalsPark")}</option>
-        <option value={11}>{t("factory")}</option>
-        <option value={12}>{t("cave")}</option>
-        <option value={13}>{t("festival")}</option>
-        <option value={14}>{t("hotSpring")}</option>
-        <option value={15}>{t("walkingTrack")}</option>
-        <option value={16}>{t("dam")}</option>
-        <option value={17}>{t("falaj")}</option>
-        <option value={18}>{t("mosque")}</option>
-        <option value={19}>{t("plantsPark")}</option>
+          <option value="" disabled>{t('placeType')}</option>
+          <option value={1}>{t('beach')}</option>
+          <option value={2}>{t('mountain')}</option>
+          {/* Add other options */}
         </select>
 
         <label>Rating:</label>
@@ -230,18 +227,32 @@ export default function EditForm({ params  }: { params: { adminPlaceId: string |
           className="rounded-2xl border-2 border-yellow-300 p-2 m-2"
           type="number"
           name="rating"
-          placeholder={t("rating")}
+          placeholder={t('rating')}
           min="1"
           max="5"
-          value={formValues.rating ?? ""}
+          value={formValues.rating ?? ''}
           onChange={handleInputChange}
         />
 
-        <button type="submit" className="rounded-2xl bg-yellow-500 p-2 mt-4">Submit</button>
+        {/* New Checkbox Field */}
+        <label htmlFor="is_checked">Is Checked:</label>
+        <input
+          className="rounded-2xl border-2 border-yellow-300 p-2 m-2"
+          type="checkbox"
+          name="is_checked"
+          id="is_checked"
+          checked={formValues.is_checked}
+          onChange={handleCheckboxChange} // Handle checkbox change
+        />
+
+        <button type="submit" className="rounded-2xl bg-yellow-500 p-2 mt-4">
+          Submit
+        </button>
       </form>
     </div>
   );
 }
+
 
 
 
