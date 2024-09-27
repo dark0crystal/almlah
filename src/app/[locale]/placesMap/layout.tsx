@@ -80,7 +80,7 @@ const PlacesMapLayout = ({ children }: PlacesMapLayoutProps) => {
 
   const createCustomIcon = (emoji: string) => {
     return L.divIcon({
-      html: `<div style="font-size: 25px;">${emoji}</div>`,
+      html: `<div style="font-size: 28px;">${emoji}</div>`,
       className: '',
     });
   };
