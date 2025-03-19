@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from '../../../../../navigation'
 import { getLocale } from "next-intl/server";
 import Image from 'next/image';
-import img from '../../../../../public/AbnAlyahodya.jpeg'
+
 
 
 
@@ -18,7 +18,7 @@ const AdminSideBar = async() => {
             <Link className='m-4' locale={locale} href={"adminDashboard/users/"}>users</Link>
             <Link className='m-4' locale={locale} href={"adminDashboard/reviews/"}>reviews</Link>
         </div>
-        <Image width={200} height={100} src={img} alt='qsam'/>
+        
     </div>
   )
 }
