@@ -1,9 +1,6 @@
 import React from 'react'
 import {Link} from '../../../../../navigation'
 import { getLocale } from "next-intl/server";
-import Image from 'next/image';
-
-
 
 
 const AdminSideBar = async() => {
